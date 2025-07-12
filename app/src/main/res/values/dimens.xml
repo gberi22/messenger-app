@@ -1,0 +1,12 @@
+<resources>
+    <!--login and registration part-->
+    <dimen name="screen_padding">24dp</dimen>
+    <dimen name="avatar_size">150dp</dimen>
+    <dimen name="avatar_margin_top">100dp</dimen>
+    <dimen name="input_margin_top">44dp</dimen>
+    <dimen name="input_spacing">12dp</dimen>
+    <dimen name="input_padding">16dp</dimen>
+    <dimen name="button_margin_top">24dp</dimen>
+    <dimen name="button_secondary_margin_top">8dp</dimen>
+    <dimen name="section_spacing">124dp</dimen>
+</resources>

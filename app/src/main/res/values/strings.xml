@@ -1,5 +1,14 @@
 <resources>
+    <!--login and registration part-->
     <string name="app_name">Messenger App</string>
+    <string name="login">SIGN IN</string>
+    <string name="not_registered">Not registered?</string>
+    <string name="password">Enter your password</string>
+    <string name="nickname">Enter your nickname</string>
+    <string name="authorize">SIGN UP</string>
+    <string name="profession">What I do</string>
+    <string name="sign_up">SIGN UP</string>
+    <!--main conv and search-->
     <string name="search">Search</string>
     <string name="back_button">Go Back</string>
 </resources>
