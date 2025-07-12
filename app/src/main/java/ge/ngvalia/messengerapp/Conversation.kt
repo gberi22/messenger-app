@@ -6,3 +6,4 @@ data class Conversation(
     val timestamp: String,
     val avatarUrl: String? = null
 )
+
