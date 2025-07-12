@@ -91,28 +91,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_anchor="@id/bottom_app_bar"
+        android:layout_marginTop="128dp"
         app:layout_anchorGravity="top|fill_horizontal"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_conversation" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="112dp"
         android:layout_gravity="bottom"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
         app:fabCradleMargin="6dp"
         app:fabCradleRoundedCornerRadius="12dp"
-        app:hideOnScroll="true">
+        app:hideOnScroll="true"
+        android:background="@drawable/gradient_background"
+        >
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
             app:menu="@menu/bottom_navigation_menu"
             app:labelVisibilityMode="unlabeled" />
 
@@ -122,11 +124,13 @@
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="72dp"
         android:backgroundTint="#2196F3"
         android:contentDescription="action button"
         android:src="@drawable/ic_add"
-        app:layout_anchor="@+id/conversations_recycler_view"
-        app:layout_anchorGravity="top|center"
+        app:fabCustomSize="68dp"
+        app:shapeAppearanceOverlay="@style/CircleImageView"
         app:tint="@android:color/white" />
 
 
