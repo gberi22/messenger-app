@@ -15,5 +15,5 @@
     <string name="update">Update</string>
     <string name="sign_out">Sign Out</string>
     <string name="write_message">Message</string>
-
+    <string name="send">Send</string>
 </resources>

@@ -1,4 +1,4 @@
-package ge.ngvalia.messengerapp
+package ge.ngvalia.messengerapp.ui.chat
 
 data class Conversation(
     val userName: String,

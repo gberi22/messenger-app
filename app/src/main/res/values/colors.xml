@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--login and registration part-->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#4A67FF</color>
+    <color name="blue">#03A9F4</color>
     <color name="grey">#888888</color>
 
-    <!--main conv and search-->
     <color name="light_gray">#EBE4E4</color>
     <color name="dark_gray">#474646</color>
+
+    <color name="primary">#03A9F4</color>
+
+    <color name="chat_bubble_sender">#EDEEFF</color>
+    <color name="chat_bubble_receiver">#4D73FF</color>
+    <color name="chat_bubble_text">#333333</color>
 </resources>

@@ -1,14 +1,23 @@
 <resources>
+    <dimen name="button_radius">20dp</dimen>
+
     <!--login and registration part-->
-    <dimen name="screen_padding">24dp</dimen>
+    <dimen name="screen_padding">4dp</dimen>
     <dimen name="avatar_size">150dp</dimen>
     <dimen name="avatar_margin_top">100dp</dimen>
     <dimen name="input_margin_top">44dp</dimen>
     <dimen name="input_spacing">20dp</dimen>
     <dimen name="input_padding">16dp</dimen>
-    <dimen name="button_margin_top">24dp</dimen>
+    <dimen name="button_margin_top">60dp</dimen>
     <dimen name="button_secondary_margin_top">8dp</dimen>
-    <dimen name="section_spacing">124dp</dimen>
+    <dimen name="section_spacing">96dp</dimen>
     <!--profile page part-->
     <dimen name="profile_image_size">160dp</dimen>
+
+    <!--chat page part-->
+    <dimen name="toolbar_height">96dp</dimen>
+    <dimen name="message_container_padding">8dp</dimen>
+    <dimen name="message_input_padding">8dp</dimen>
+    <dimen name="message_input_margin">16dp</dimen>
+    <dimen name="send_button_size">20dp</dimen>
 </resources>

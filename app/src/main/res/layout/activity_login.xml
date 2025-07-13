@@ -47,29 +47,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_margin_top"
         android:background="@drawable/button_design"
+        app:backgroundTint="@null"
         android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
     <TextView
         android:id="@+id/tvNotRegistered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/section_spacing"
+        android:layout_marginTop="80dp"
         android:text="@string/not_registered"
         android:textColor="@color/grey"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
     <Button
         android:id="@+id/btnGoToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/outlined_button"
+        app:backgroundTint="@null"
         android:text="@string/authorize"
         android:textAllCaps="false"
         android:textColor="@color/black"
