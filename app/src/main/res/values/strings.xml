@@ -11,4 +11,9 @@
     <!--main conv and search-->
     <string name="search">Search</string>
     <string name="back_button">Go Back</string>
+    <!--profile page-->
+    <string name="update">Update</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="write_message">Message</string>
+
 </resources>
