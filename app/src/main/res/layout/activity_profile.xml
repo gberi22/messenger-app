@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_margin_top"
         android:background="@drawable/button_design"
+        app:backgroundTint="@null"
         android:text="@string/update"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -64,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/input_spacing"
         android:background="@drawable/outlined_button"
+        app:backgroundTint="@null"
         android:text="@string/sign_out"
         android:textAllCaps="false"
         android:textColor="@color/black"
@@ -71,5 +73,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5" />
+
+
+    <!--    qveda buttonebi-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

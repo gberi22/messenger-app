@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_margin_top"
         android:background="@drawable/button_design"
+        app:backgroundTint="@null"
         android:text="@string/sign_up"
         android:textAllCaps="false"
         android:textColor="@color/white"
