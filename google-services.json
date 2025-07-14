@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "126874109387",
-    "project_id": "messenger-app-f856d",
-    "storage_bucket": "messenger-app-f856d.firebasestorage.app"
+    "project_number": "716080489130",
+    "project_id": "messenger-app-15585",
+    "storage_bucket": "messenger-app-15585.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:126874109387:android:bb319eaf0333b92cd9224e",
+        "mobilesdk_app_id": "1:716080489130:android:fd560a6013b306345ee6d3",
         "android_client_info": {
           "package_name": "ge.ngvalia.messengerapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCHKAIk__ErUe1nnaK1JVUyBueBpxB5iAY"
+          "current_key": "AIzaSyCKWbLFQrw8naLaltamUZ25O3H5k9uxQ8M"
         }
       ],
       "services": {
