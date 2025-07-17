@@ -1,19 +1,58 @@
 package ge.ngvalia.messengerapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import ge.ngvalia.messengerapp.ui.auth.LoginActivity
 import ge.ngvalia.messengerapp.ui.chat.Conversation
 import ge.ngvalia.messengerapp.ui.chat.ConversationAdapter
+import ge.ngvalia.messengerapp.ui.profile.ProfileActivity
 
-class MainActivity : AppCompatActivity() {
+class MainPageActivity : AppCompatActivity() {
+
+    private val auth = FirebaseAuth.getInstance()
+    private lateinit var bottomNavigationView: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (auth.currentUser == null) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
         enableEdgeToEdge()
         setContentView(R.layout.main_page)
+        setupBottomNavigation()
         setupRecyclerView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Reset to home when returning to MainActivity
+        bottomNavigationView.selectedItemId = R.id.nav_home
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+        bottomNavigationView.selectedItemId = R.id.nav_home
     }
 
     private fun setupRecyclerView() {
