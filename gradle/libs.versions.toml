@@ -1,8 +1,6 @@
 [versions]
-activityKtx = "1.10.1"
 activityKtxVersion = "1.8.2"
 agp = "8.9.0"
-firebaseAuthKtx = "23.2.1"
 firebaseBom = "33.16.0"
 fragmentKtx = "1.8.8"
 glide = "4.16.0"
@@ -24,7 +22,6 @@ constraintlayout = "2.2.1"
 recyclerview = "1.4.0"
 
 [libraries]
-androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-activity-ktx-v182 = { module = "androidx.activity:activity-ktx", version.ref = "activityKtxVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
@@ -32,13 +29,11 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
-firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-database = { module = "com.google.firebase:firebase-database" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 firebase-storage-ktx = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -53,4 +48,3 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-

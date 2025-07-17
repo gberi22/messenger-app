@@ -54,15 +54,12 @@ class AuthRepository {
                                 "nicknames/$nickname" to userId
                             )
 
-                            Log.d("AuthRepository", "Updating database with: $updates")
 
                             db.updateChildren(updates)
                                 .addOnSuccessListener {
-                                    Log.d("AuthRepository", "Database update successful")
                                     callback(AuthResult.Success)
                                 }
                                 .addOnFailureListener { e ->
-                                    Log.e("AuthRepository", "DB update failed: ${e.message}")
                                     // Delete the auth user if DB update fails
                                     auth.currentUser?.delete()
                                     callback(AuthResult.Error(e.message ?: "Failed to create user profile"))
@@ -79,7 +76,6 @@ class AuthRepository {
                                 )
                             }
                         } else {
-                            Log.e("AuthRepository", "Authentication failed: ${task.exception?.message}")
                             callback(
                                 AuthResult.Error(
                                     task.exception?.message ?: "Registration failed"
@@ -111,13 +107,5 @@ class AuthRepository {
                     )
                 }
             }
-    }
-
-    fun logoutUser() {
-        auth.signOut()
-    }
-
-    fun isUserLoggedIn(): Boolean {
-        return auth.currentUser != null
     }
 }

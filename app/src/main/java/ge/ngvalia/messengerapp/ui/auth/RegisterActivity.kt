@@ -1,13 +1,13 @@
 package ge.ngvalia.messengerapp.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import ge.ngvalia.messengerapp.databinding.ActivityRegisterBinding
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import ge.ngvalia.messengerapp.R
+import ge.ngvalia.messengerapp.MainPageActivity
 import ge.ngvalia.messengerapp.auth.AuthResult
 import ge.ngvalia.messengerapp.auth.AuthViewModel
 
