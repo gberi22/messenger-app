@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_height="108dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/blue"
+        android:background="@color/blue"
+        >
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/back_button"
+            android:src="@drawable/ic_arrow_back"
+            />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp"
+            android:backgroundTint="@color/light_gray">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/dark_gray" />
+
+                <EditText
+                    android:id="@+id/search_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/search"
+                    android:textColorHint="@android:color/black"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <!-- Loading indicator in search bar -->
+                <ProgressBar
+                    android:id="@+id/search_progress_bar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone"
+                    android:indeterminateTint="@color/dark_gray"
+                    style="?android:attr/progressBarStyleSmall" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <!-- Main content area with loading overlay -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            tools:listitem="@layout/search_item" />
+
+        <!-- Center loading indicator for initial load -->
+        <ProgressBar
+            android:id="@+id/main_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminateTint="@color/blue" />
+
+        <!-- Empty state view -->
+        <LinearLayout
+            android:id="@+id/empty_state_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_search"
+                android:layout_marginBottom="16dp"
+                app:tint="@color/dark_gray"
+                android:alpha="0.5" />
+
+            <TextView
+                android:id="@+id/empty_state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_users_found"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Error state view -->
+        <LinearLayout
+            android:id="@+id/error_state_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:gravity="center"
+            android:padding="32dp">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_error"
+                android:layout_marginBottom="16dp"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/error_state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/something_went_wrong"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/retry_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retry"
+                android:backgroundTint="@color/blue"
+                android:textColor="@color/white"
+                style="@style/Widget.Material3.Button" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

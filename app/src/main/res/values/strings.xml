@@ -17,4 +17,7 @@
     <string name="write_message">Message</string>
     <string name="send">Send</string>
     <string name="action_button">action button</string>
+    <string name="no_users_found">Could not find users with given name</string>
+    <string name="something_went_wrong">Something went wrong.</string>
+    <string name="retry">Retry</string>
 </resources>

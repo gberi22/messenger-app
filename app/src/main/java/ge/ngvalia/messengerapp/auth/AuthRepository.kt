@@ -33,6 +33,14 @@ class AuthRepository {
                                 return@addOnCompleteListener
                             }
 
+                            // Create user data with nicknameLower for search
+                            val userMap = mapOf(
+                                "uid" to userId,
+                                "nickname" to nickname,
+                                "nicknameLower" to nickname.lowercase(), // Added for search
+                                "profession" to profession,
+                                "photoUrl" to "" // Added for completeness
+                            )
                             // Create user profile
                             val user = User(
                                 uid = userId,
@@ -40,6 +48,25 @@ class AuthRepository {
                                 profession = profession,
                                 profilePicUrl = ""
                             )
+
+                            val updates = hashMapOf<String, Any>(
+                                "users/$userId" to userMap,
+                                "nicknames/$nickname" to userId
+                            )
+
+                            Log.d("AuthRepository", "Updating database with: $updates")
+
+                            db.updateChildren(updates)
+                                .addOnSuccessListener {
+                                    Log.d("AuthRepository", "Database update successful")
+                                    callback(AuthResult.Success)
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("AuthRepository", "DB update failed: ${e.message}")
+                                    // Delete the auth user if DB update fails
+                                    auth.currentUser?.delete()
+                                    callback(AuthResult.Error(e.message ?: "Failed to create user profile"))
+                                }
 
                             CoroutineScope(Dispatchers.IO).launch {
                                 userRepository.createUserProfile(user).fold(
@@ -52,9 +79,10 @@ class AuthRepository {
                                 )
                             }
                         } else {
+                            Log.e("AuthRepository", "Authentication failed: ${task.exception?.message}")
                             callback(
                                 AuthResult.Error(
-                                    task.exception?.localizedMessage ?: "Auth error"
+                                    task.exception?.message ?: "Registration failed"
                                 )
                             )
                         }
@@ -83,5 +111,13 @@ class AuthRepository {
                     )
                 }
             }
+    }
+
+    fun logoutUser() {
+        auth.signOut()
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        return auth.currentUser != null
     }
 }

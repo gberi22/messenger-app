@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
 }
 
 android {
@@ -55,6 +56,8 @@ dependencies {
 
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+
+    ksp(libs.ksp)
 
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.storage.ktx)
