@@ -2,7 +2,6 @@ package ge.ngvalia.messengerapp.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import ge.ngvalia.messengerapp.databinding.ActivityRegisterBinding
