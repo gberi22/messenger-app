@@ -21,10 +21,4 @@ class AuthViewModel : ViewModel() {
             _authResult.postValue(result)
         }
     }
-
-    fun logout() {
-        repository.logoutUser()
-    }
-
-    fun isUserLoggedIn(): Boolean = repository.isUserLoggedIn()
 }

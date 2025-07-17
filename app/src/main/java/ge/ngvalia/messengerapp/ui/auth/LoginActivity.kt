@@ -7,21 +7,29 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import ge.ngvalia.messengerapp.MainActivity
+import ge.ngvalia.messengerapp.MainPageActivity
 import ge.ngvalia.messengerapp.R
 import ge.ngvalia.messengerapp.auth.AuthResult
 import ge.ngvalia.messengerapp.auth.AuthViewModel
 import ge.ngvalia.messengerapp.databinding.ActivityLoginBinding
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: AuthViewModel by viewModels()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (auth.currentUser != null) {
+            startActivity(Intent(this, MainPageActivity::class.java))
+            finish()
+            return
+        }
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         FirebaseApp.initializeApp(this)
@@ -38,6 +46,12 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             val nickname = nicknameEdit.text.toString()
             val password = passwordEdit.text.toString()
+
+            if (nickname.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             viewModel.login(nickname, password)
         }
 
@@ -45,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
             when (result) {
                 is AuthResult.Success -> {
                     Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, MainPageActivity::class.java))
                     finish()
                 }
 
