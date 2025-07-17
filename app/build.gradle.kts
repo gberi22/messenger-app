@@ -53,10 +53,25 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
 
-    // TODO: Add the dependencies for Firebase products you want to use
-    // When using the BoM, don't specify versions in Firebase dependencies
-    // https://firebase.google.com/docs/android/setup#available-libraries
-
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.storage.ktx)
+    // For future auth implementation
+    // ViewModel and LiveData
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    // Add this for Firebase coroutines support
+    implementation(libs.kotlinx.coroutines.play.services)
+
+    // Image loading
+    implementation(libs.glide)
+
+    // Add these missing dependencies for Activity Result API and RecyclerView
+    implementation(libs.androidx.activity.ktx.v182)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.recyclerview)
 }
