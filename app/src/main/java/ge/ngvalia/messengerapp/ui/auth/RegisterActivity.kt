@@ -2,12 +2,12 @@ package ge.ngvalia.messengerapp.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import ge.ngvalia.messengerapp.databinding.ActivityRegisterBinding
 import androidx.activity.viewModels
 import ge.ngvalia.messengerapp.MainPageActivity
-import ge.ngvalia.messengerapp.R
 import ge.ngvalia.messengerapp.auth.AuthResult
 import ge.ngvalia.messengerapp.auth.AuthViewModel
 
@@ -21,12 +21,14 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val passwordEdit = findViewById<EditText>(R.id.etPassword)
-        val nicknameEdit = findViewById<EditText>(R.id.etNickname)
-        val professionEdit = findViewById<EditText>(R.id.etProfession)
-        val registerBtn = findViewById<Button>(R.id.btnSignUp)
+        // TODO Back logic later
+        val passwordEdit = binding.etPassword
+        val nicknameEdit = binding.etNickname
+        val professionEdit = binding.etProfession
+        val registerBtn = binding.btnSignUp
 
         registerBtn.setOnClickListener {
+            Log.d("RegisterActivity", "Register button clicked")
             if (nicknameEdit.text.isEmpty() || passwordEdit.text.isEmpty() || professionEdit.text.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
