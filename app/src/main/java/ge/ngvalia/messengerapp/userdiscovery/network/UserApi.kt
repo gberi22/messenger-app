@@ -1,14 +1,13 @@
 package ge.ngvalia.messengerapp.userdiscovery.network
 
 import com.google.firebase.database.*
-import ge.ngvalia.messengerapp.userdiscovery.data.model.User
+import ge.ngvalia.messengerapp.data.model.User
 import kotlinx.coroutines.tasks.await
 
 class UserApi(
     private val db: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
 ) {
 
-    // Fetch users with pagination (no search)
     suspend fun getUsers(
         startAfterKey: String? = null,
         limit: Int = 20
@@ -23,7 +22,6 @@ class UserApi(
         return processUsersFromSnapshot(snapshot)
     }
 
-    // Case-insensitive nickname search
     suspend fun searchUsersByNickname(searchQuery: String, limit: Int = 50): List<User> {
         val searchQueryLower = searchQuery.lowercase()
 
@@ -34,7 +32,6 @@ class UserApi(
         // return searchByNicknameFieldWithClientFilter(searchQuery, limit)
     }
 
-    // Search using nicknameLower field (most efficient)
     private suspend fun searchByNicknameLowerField(searchQueryLower: String, limit: Int): List<User> {
         val query = db.orderByChild("nicknameLower")
             .startAt(searchQueryLower)
@@ -45,11 +42,9 @@ class UserApi(
         return processUsersFromSnapshot(snapshot)
     }
 
-    // Search using nickname field with client-side case filtering (less efficient but works)
     private suspend fun searchByNicknameFieldWithClientFilter(searchQuery: String, limit: Int): List<User> {
         val searchQueryLower = searchQuery.lowercase()
 
-        // Get users whose nickname starts with the search query (case-sensitive Firebase query)
         val query = db.orderByChild("nickname")
             .startAt(searchQuery)
             .endAt(searchQuery + "\uf8ff")
@@ -58,7 +53,6 @@ class UserApi(
         val snapshot = query.get().await()
         val users = processUsersFromSnapshot(snapshot)
 
-        // Filter for case-insensitive match
         return users.filter { user ->
             user.nickname.lowercase().contains(searchQueryLower)
         }.take(limit)
@@ -84,7 +78,7 @@ class UserApi(
             val user = child.getValue(User::class.java)
             if (user != null) {
                 val userWithId = user.copy(
-                    id = child.key ?: "",
+                    uid = child.key ?: "",
                     // If nickname is empty, try to use the key as nickname
                     nickname = if (user.nickname.isEmpty()) child.key ?: "" else user.nickname,
                     // Ensure nicknameLower is set

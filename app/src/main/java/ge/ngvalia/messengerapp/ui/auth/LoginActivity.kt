@@ -7,13 +7,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
-import ge.ngvalia.messengerapp.MainPageActivity
 import ge.ngvalia.messengerapp.R
-import ge.ngvalia.messengerapp.auth.AuthResult
-import ge.ngvalia.messengerapp.auth.AuthViewModel
+import ge.ngvalia.messengerapp.data.model.AuthResult
 import ge.ngvalia.messengerapp.databinding.ActivityLoginBinding
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import ge.ngvalia.messengerapp.ui.homepage.MainPageActivity
 
 class LoginActivity : AppCompatActivity() {
 

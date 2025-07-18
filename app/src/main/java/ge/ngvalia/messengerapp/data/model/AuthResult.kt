@@ -1,4 +1,4 @@
-package ge.ngvalia.messengerapp.auth
+package ge.ngvalia.messengerapp.data.model
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth

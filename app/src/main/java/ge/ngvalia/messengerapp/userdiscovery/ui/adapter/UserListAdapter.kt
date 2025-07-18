@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ge.ngvalia.messengerapp.databinding.ItemUserBinding
-import ge.ngvalia.messengerapp.userdiscovery.data.model.User
 import com.bumptech.glide.Glide
+import ge.ngvalia.messengerapp.data.model.User
 
-class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(DIFF_CALLBACK) {
+class UserListAdapter(
+    private val onUserClick: (User) -> Unit
+) : ListAdapter<User, UserListAdapter.UserViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<User>() {
@@ -32,7 +34,11 @@ class UserListAdapter : ListAdapter<User, UserListAdapter.UserViewHolder>(DIFF_C
         fun bind(user: User) {
             binding.userName.text = user.nickname
             binding.profession.text = user.profession
-            Glide.with(binding.userAvatar).load(user.photoUrl).into(binding.userAvatar)
+            Glide.with(binding.userAvatar).load(user.profilePicUrl).into(binding.userAvatar)
+
+            binding.root.setOnClickListener {
+                onUserClick(user)
+            }
         }
     }
 }

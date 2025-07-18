@@ -2,13 +2,12 @@ package ge.ngvalia.messengerapp.userdiscovery.network
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import ge.ngvalia.messengerapp.userdiscovery.data.model.User
+import ge.ngvalia.messengerapp.data.model.User
 import kotlinx.coroutines.tasks.await
 
 class FirebaseMigrationHelper {
     private val db = FirebaseDatabase.getInstance().getReference("users")
 
-    // Suspend version (for use in coroutines)
     suspend fun addNicknameLowerField() {
         val snapshot = db.get().await()
 
@@ -23,7 +22,6 @@ class FirebaseMigrationHelper {
         }
     }
 
-    // Non-suspend version using callback (for use without coroutines)
     fun addNicknameLowerFieldWithCallback(onComplete: (Boolean, String?) -> Unit) {
         db.get().addOnSuccessListener { snapshot ->
             val updates = mutableListOf<Pair<DatabaseReference, Map<String, Any>>>()
@@ -38,7 +36,6 @@ class FirebaseMigrationHelper {
                 }
             }
 
-            // Update all users
             var completed = 0
             var hasError = false
 

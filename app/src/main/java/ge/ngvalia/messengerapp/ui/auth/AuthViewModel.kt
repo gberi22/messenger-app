@@ -1,8 +1,10 @@
-package ge.ngvalia.messengerapp.auth
+package ge.ngvalia.messengerapp.ui.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ge.ngvalia.messengerapp.data.repository.AuthRepository
+import ge.ngvalia.messengerapp.data.model.AuthResult
 
 class AuthViewModel : ViewModel() {
     private val repository = AuthRepository()

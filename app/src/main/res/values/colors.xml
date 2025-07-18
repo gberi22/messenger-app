@@ -15,4 +15,8 @@
     <color name="chat_bubble_receiver">#4D73FF</color>
     <color name="chat_bubble_text">#333333</color>
 
+    <color name="primary_dark">#1976D2</color>
+    <color name="accent">#FF4081</color>
+    <color name="light_grey">#F5F5F5</color>
+
 </resources>

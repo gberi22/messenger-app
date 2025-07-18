@@ -1,10 +1,10 @@
 package ge.ngvalia.messengerapp.userdiscovery.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ge.ngvalia.messengerapp.userdiscovery.data.repository.UserRepository
+import ge.ngvalia.messengerapp.data.repository.SearchUserRepository
 
 class UserDiscoveryViewModelFactory(
-    private val repository: UserRepository
+    private val repository: SearchUserRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(UserDiscoveryViewModel::class.java)) {

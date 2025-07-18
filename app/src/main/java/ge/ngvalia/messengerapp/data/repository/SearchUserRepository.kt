@@ -1,9 +1,9 @@
-package ge.ngvalia.messengerapp.userdiscovery.data.repository
+package ge.ngvalia.messengerapp.data.repository
 
-import ge.ngvalia.messengerapp.userdiscovery.data.model.User
+import ge.ngvalia.messengerapp.data.model.User
 import ge.ngvalia.messengerapp.userdiscovery.network.UserApi
 
-class UserRepository(private val userApi: UserApi) {
+class SearchUserRepository(private val userApi: UserApi) {
 
     suspend fun getUsers(
         lastKey: String? = null,
@@ -14,7 +14,7 @@ class UserRepository(private val userApi: UserApi) {
 
     suspend fun searchUsers(searchQuery: String): List<User> {
         return when {
-            searchQuery.length >= 2 -> userApi.searchUsersByNickname(searchQuery)
+            searchQuery.length >= 3 -> userApi.searchUsersByNickname(searchQuery)
             else -> emptyList()
         }
     }

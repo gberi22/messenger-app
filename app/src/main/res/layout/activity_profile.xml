@@ -1,116 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profile_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Bottom Navigation (same as main page) -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:padding="@dimen/screen_padding">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/ivProfileImage"
-            android:layout_width="@dimen/profile_image_size"
-            android:layout_height="@dimen/profile_image_size"
-            android:layout_marginTop="@dimen/avatar_margin_top"
-            android:background="@drawable/circle_shape"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile_picture"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/etNickname"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/input_margin_top"
-            android:background="@drawable/edit_text"
-            android:hint="@string/nickname"
-            android:padding="@dimen/input_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivProfileImage" />
-
-        <EditText
-            android:id="@+id/etProfession"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/input_spacing"
-            android:background="@drawable/edit_text"
-            android:hint="@string/profession"
-            android:padding="@dimen/input_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etNickname" />
-
-        <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/button_margin_top"
-            android:background="@drawable/button_design"
-            android:text="@string/update"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:backgroundTint="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etProfession" />
-
-        <Button
-            android:id="@+id/btnSignOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/input_spacing"
-            android:background="@drawable/outlined_button"
-            android:text="@string/sign_out"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:backgroundTint="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnUpdate" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:background="@drawable/gradient_background"
-        app:fabCradleMargin="6dp"
-        app:fabCradleRoundedCornerRadius="12dp">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_navigation_menu" />
+            android:background="@color/white"
+            android:padding="@dimen/screen_padding">
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+            <ImageView
+                android:id="@+id/ivProfileImage"
+                android:layout_width="@dimen/profile_image_size"
+                android:layout_height="@dimen/profile_image_size"
+                android:layout_marginTop="@dimen/avatar_margin_top"
+                android:background="@drawable/circle_shape"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_picture"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="72dp"
-        android:backgroundTint="#2196F3"
-        android:contentDescription="@string/action_button"
-        android:src="@drawable/ic_add"
-        app:fabCustomSize="68dp"
-        app:shapeAppearanceOverlay="@style/CircleImageView"
-        app:tint="@android:color/white" />
+            <EditText
+                android:id="@+id/etNickname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/input_margin_top"
+                android:background="@drawable/edit_text"
+                android:hint="@string/nickname"
+                android:padding="@dimen/input_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivProfileImage" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <EditText
+                android:id="@+id/etProfession"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/input_spacing"
+                android:background="@drawable/edit_text"
+                android:hint="@string/profession"
+                android:padding="@dimen/input_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etNickname" />
+
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/button_margin_top"
+                android:background="@drawable/button_design"
+                android:text="@string/update"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etProfession" />
+
+            <Button
+                android:id="@+id/btnSignOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/input_spacing"
+                android:background="@drawable/outlined_button"
+                android:text="@string/sign_out"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnUpdate" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/gradient_background"
+            app:fabCradleMargin="6dp"
+            app:fabCradleRoundedCornerRadius="12dp">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_navigation_menu" />
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="72dp"
+            android:backgroundTint="#2196F3"
+            android:contentDescription="@string/action_button"
+            android:src="@drawable/ic_add"
+            app:fabCustomSize="68dp"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            app:tint="@android:color/white" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
