@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import ge.ngvalia.messengerapp.R
 import ge.ngvalia.messengerapp.databinding.ActivityChatBinding
 
 class ChatActivity : AppCompatActivity() {
@@ -17,7 +19,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var viewModel: ChatViewModel
     private lateinit var messageAdapter: MessageAdapter
 
-    // Extract user data from intent
     private val otherUserId: String by lazy {
         intent.getStringExtra("OTHER_USER_ID") ?: ""
     }
@@ -30,19 +31,22 @@ class ChatActivity : AppCompatActivity() {
         intent.getStringExtra("OTHER_USER_AVATAR")
     }
 
+    private val otherUserDescription: String? by lazy {
+        intent.getStringExtra("OTHER_USER_DESCRIPTION")  // Changed from "OTHER_USER_PROFESSION"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Validate that we have the required user ID
         if (otherUserId.isEmpty()) {
             Toast.makeText(this, "Invalid user data", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        setupToolbar(otherUserName)
+        setupCustomToolbar()
         setupRecyclerView()
         setupViewModel()
         setupObservers()
@@ -51,12 +55,24 @@ class ChatActivity : AppCompatActivity() {
         viewModel.initializeChat(otherUserId)
     }
 
-    private fun setupToolbar(userName: String) {
-        setSupportActionBar(binding.chatToolbar)
-        supportActionBar?.title = userName
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.chatToolbar.setNavigationOnClickListener {
+    private fun setupCustomToolbar() {
+        binding.tvUserName.text = otherUserName
+        binding.tvUserStatus.text = otherUserDescription ?: "Tap to view info"
+
+        if (!otherUserAvatar.isNullOrEmpty()) {
+            Glide.with(this)
+                .load(otherUserAvatar)
+                .placeholder(R.drawable.ic_person)
+                .error(R.drawable.ic_person)
+                .into(binding.ivProfilePicture)
+        }
+
+        binding.btnBack.setOnClickListener {
             finish()
+        }
+
+        binding.btnMore.setOnClickListener {
+            Toast.makeText(this, "More options", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -68,7 +84,6 @@ class ChatActivity : AppCompatActivity() {
         binding.recyclerMessages.apply {
             this.layoutManager = layoutManager
             adapter = messageAdapter
-            // Improved scroll handling
             addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
                 if (bottom < oldBottom && messageAdapter.itemCount > 0) {
                     post {
@@ -95,7 +110,16 @@ class ChatActivity : AppCompatActivity() {
 
         viewModel.chatParticipant.observe(this) { participant ->
             participant?.let {
-                supportActionBar?.title = it.nickname
+                binding.tvUserName.text = it.nickname
+                binding.tvUserStatus.text = it.profession.ifEmpty { "No description" }
+
+                if (it.profilePicUrl.isNotEmpty()) {
+                    Glide.with(this)
+                        .load(it.profilePicUrl)
+                        .placeholder(R.drawable.ic_person)
+                        .error(R.drawable.ic_person)
+                        .into(binding.ivProfilePicture)
+                }
             }
         }
 
@@ -116,7 +140,6 @@ class ChatActivity : AppCompatActivity() {
             if (messageSent) {
                 binding.etMessage.text?.clear()
                 viewModel.clearMessageSent()
-                // Hide keyboard after sending
                 hideKeyboard()
             }
         }
@@ -136,6 +159,10 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
+        binding.etMessage.setOnClickListener {
+            showKeyboard()
+        }
+
         binding.etMessage.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -145,6 +172,12 @@ class ChatActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: android.text.Editable?) {}
         })
+    }
+
+    private fun showKeyboard() {
+        binding.etMessage.requestFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(binding.etMessage, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun updateSendButtonState() {
@@ -170,6 +203,5 @@ class ChatActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Clean up resources if needed
     }
 }

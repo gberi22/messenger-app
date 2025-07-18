@@ -18,7 +18,6 @@ class MainPageViewModel : ViewModel() {
     val filteredConversations: LiveData<List<Conversation>> = _filteredConversations
 
     private val _searchResults = MutableLiveData<List<Map<String, Any>>>()
-    val searchResults: LiveData<List<Map<String, Any>>> = _searchResults
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -49,7 +48,6 @@ class MainPageViewModel : ViewModel() {
                     allConversations = conversationList
                     _conversations.value = conversationList
 
-                    // Apply current search if any
                     if (currentQuery.isNotEmpty()) {
                         filterConversations(currentQuery)
                     } else {
@@ -65,7 +63,6 @@ class MainPageViewModel : ViewModel() {
         currentQuery = query.trim()
 
         if (currentQuery.isEmpty()) {
-            // Clear search mode
             _isSearchMode.value = false
             _filteredConversations.value = allConversations
             _searchResults.value = emptyList()
@@ -73,16 +70,13 @@ class MainPageViewModel : ViewModel() {
         }
 
         if (currentQuery.length < 2) {
-            // Too short to search
             return
         }
 
         _isSearchMode.value = true
 
-        // Filter existing conversations
         filterConversations(currentQuery)
 
-        // Search for new users
         searchUsers(currentQuery)
     }
 
@@ -97,7 +91,6 @@ class MainPageViewModel : ViewModel() {
         viewModelScope.launch {
             repository.searchUsers(query).fold(
                 onSuccess = { users ->
-                    // Filter out users we already have conversations with
                     val existingUserIds = allConversations.map { it.otherUserId }.toSet()
                     val newUsers = users.filter { user ->
                         val userId = user["uid"] as? String
@@ -106,7 +99,7 @@ class MainPageViewModel : ViewModel() {
                     _searchResults.value = newUsers
                 },
                 onFailure = { exception ->
-                    _error.value = "Search failed: ${exception.message}"
+                    _error.value = exception.message
                 }
             )
         }

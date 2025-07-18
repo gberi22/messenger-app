@@ -84,18 +84,10 @@ class LoginActivity : AppCompatActivity() {
     private fun configureRealtimeDatabase() {
         val database = FirebaseDatabase.getInstance()
 
-        // Enable persistence if not already enabled
-        try {
-            database.setPersistenceEnabled(true)
-        } catch (e: DatabaseException) {
-            // Persistence is already enabled
-            Log.d("Firebase", "Persistence already enabled")
-        }
+        database.setPersistenceEnabled(true)
 
-        // Go online
         database.goOnline()
 
-        // Check connection state
         val connectedRef = database.getReference(".info/connected")
         connectedRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

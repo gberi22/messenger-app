@@ -66,7 +66,6 @@
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
-                <!-- Loading indicator in search bar -->
                 <ProgressBar
                     android:id="@+id/search_progress_bar"
                     android:layout_width="20dp"
@@ -82,7 +81,6 @@
 
     </LinearLayout>
 
-    <!-- Main content area with loading overlay -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -98,7 +96,6 @@
             android:contentDescription="@string/app_name"
             tools:listitem="@layout/item_user" />
 
-        <!-- Center loading indicator for initial load -->
         <ProgressBar
             android:id="@+id/main_progress_bar"
             android:layout_width="wrap_content"
@@ -107,7 +104,6 @@
             android:visibility="gone"
             android:indeterminateTint="@color/blue" />
 
-        <!-- Empty state view -->
         <LinearLayout
             android:id="@+id/empty_state_layout"
             android:layout_width="wrap_content"
@@ -136,7 +132,6 @@
 
         </LinearLayout>
 
-        <!-- Error state view -->
         <LinearLayout
             android:id="@+id/error_state_layout"
             android:layout_width="wrap_content"

@@ -77,4 +77,8 @@ dependencies {
     implementation(libs.androidx.activity.ktx.v182)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.recyclerview)
+
+    // CircleImageView for profile pictures
+    implementation(libs.circleimageview)
+    ksp(libs.compiler)
 }

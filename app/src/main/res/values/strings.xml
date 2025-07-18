@@ -24,4 +24,6 @@
 x    <string name="chat">Chat</string>
     <string name="no_messages">No messages yet</string>
     <string name="typing">Typing…</string>
+    <string name="back">Back</string>
+    <string name="tap_to_view_info">Tap to view info</string>
 </resources>

@@ -57,7 +57,7 @@ class UserDiscoveryViewModel(
                 lastKey = newUsers.lastOrNull()?.uid
 
             } catch (e: Exception) {
-                _error.value = "Failed to load users: ${e.message}"
+                _error.value = e.message
             } finally {
                 _isLoading.value = false
             }
@@ -86,7 +86,7 @@ class UserDiscoveryViewModel(
                 _users.value = searchResults
 
             } catch (e: Exception) {
-                _error.value = "Search failed: ${e.message}"
+                _error.value = e.message
                 _users.value = currentUsers.toList()
             } finally {
                 _isSearching.value = false
@@ -103,7 +103,6 @@ class UserDiscoveryViewModel(
     }
 
     fun onScrolledToEnd() {
-        // Only load more if not in search mode and not currently loading
         if (!isSearchMode && _isLoading.value != true) {
             loadUsers()
         }
@@ -113,7 +112,6 @@ class UserDiscoveryViewModel(
         lastKey = null
         currentUsers.clear()
         if (isSearchMode && currentSearchQuery.isNotEmpty()) {
-            // Re-run current search
             searchUsers(currentSearchQuery)
         } else {
             isSearchMode = false

@@ -25,11 +25,7 @@ class UserApi(
     suspend fun searchUsersByNickname(searchQuery: String, limit: Int = 50): List<User> {
         val searchQueryLower = searchQuery.lowercase()
 
-        // Option 1: If you have nicknameLower field in Firebase
         return searchByNicknameLowerField(searchQueryLower, limit)
-
-        // Option 2: If you only have nickname field (fallback)
-        // return searchByNicknameFieldWithClientFilter(searchQuery, limit)
     }
 
     private suspend fun searchByNicknameLowerField(searchQueryLower: String, limit: Int): List<User> {
@@ -48,7 +44,7 @@ class UserApi(
         val query = db.orderByChild("nickname")
             .startAt(searchQuery)
             .endAt(searchQuery + "\uf8ff")
-            .limitToFirst(limit * 2) // Get more to account for case filtering
+            .limitToFirst(limit * 2)
 
         val snapshot = query.get().await()
         val users = processUsersFromSnapshot(snapshot)
@@ -58,11 +54,9 @@ class UserApi(
         }.take(limit)
     }
 
-    // Alternative: Get all users and filter client-side (only for small datasets)
     suspend fun searchUsersClientSide(searchQuery: String): List<User> {
         val searchQueryLower = searchQuery.lowercase()
 
-        // Warning: This loads ALL users - only use for small datasets
         val snapshot = db.get().await()
         val users = processUsersFromSnapshot(snapshot)
 
@@ -79,9 +73,7 @@ class UserApi(
             if (user != null) {
                 val userWithId = user.copy(
                     uid = child.key ?: "",
-                    // If nickname is empty, try to use the key as nickname
                     nickname = if (user.nickname.isEmpty()) child.key ?: "" else user.nickname,
-                    // Ensure nicknameLower is set
                     nicknameLower = if (user.nicknameLower.isEmpty()) {
                         (if (user.nickname.isEmpty()) child.key ?: "" else user.nickname).lowercase()
                     } else user.nicknameLower

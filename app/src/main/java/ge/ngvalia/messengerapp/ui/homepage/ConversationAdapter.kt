@@ -41,26 +41,21 @@ class ConversationAdapter(
             }
             timeTextView.text = conversation.lastMessageTime
 
-            // Load avatar
             if (conversation.otherUserAvatar.isNotEmpty()) {
                 Glide.with(itemView.context)
                     .load(conversation.otherUserAvatar)
                     .transform(CircleCrop())
-                    .placeholder(R.drawable.ic_person)
+                    .placeholder(R.drawable.person)
                     .error(R.drawable.ic_error)
                     .into(avatarImageView)
             } else {
-                avatarImageView.setImageResource(R.drawable.ic_person)
+                avatarImageView.setImageResource(R.drawable.person)
             }
 
-            // Show/hide unread indicator
-
-            // Set click listener
             itemView.setOnClickListener {
                 onConversationClick(conversation)
             }
 
-            // Style unread messages differently
             if (conversation.isUnread) {
                 nameTextView.setTypeface(nameTextView.typeface, android.graphics.Typeface.BOLD)
                 messageTextView.setTypeface(messageTextView.typeface, android.graphics.Typeface.BOLD)
@@ -81,61 +76,3 @@ class ConversationAdapter(
         }
     }
 }
-
-//// Search Results Adapter for new users
-//class SearchResultsAdapter(
-//    private val onUserClick: (Map<String, Any>) -> Unit
-//) : ListAdapter<Map<String, Any>, SearchResultsAdapter.SearchResultViewHolder>(SearchResultDiffCallback()) {
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(R.layout.item_conversation, parent, false)
-//        return SearchResultViewHolder(view)
-//    }
-//
-//    override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
-//        holder.bind(getItem(position))
-//    }
-//
-//    inner class SearchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        private val avatarImageView: ImageView = itemView.findViewById(R.id.user_avatar)
-//        private val nameTextView: TextView = itemView.findViewById(R.id.user_name)
-//        private val professionTextView: TextView = itemView.findViewById(R.id.profession_text_view)
-//
-//        fun bind(user: Map<String, Any>) {
-//            val nickname = user["nickname"] as? String ?: "Unknown User"
-//            val profilePicUrl = user["profilePicUrl"] as? String ?: ""
-//            val profession = user["profession"] as? String ?: ""
-//
-//            nameTextView.text = nickname
-//            professionTextView.text = profession
-//            professionTextView.visibility = if (profession.isNotEmpty()) View.VISIBLE else View.GONE
-//
-//            // Load avatar
-//            if (profilePicUrl.isNotEmpty()) {
-//                Glide.with(itemView.context)
-//                    .load(profilePicUrl)
-//                    .transform(CircleCrop())
-//                    .placeholder(R.drawable.ic_person_placeholder)
-//                    .error(R.drawable.ic_person_placeholder)
-//                    .into(avatarImageView)
-//            } else {
-//                avatarImageView.setImageResource(R.drawable.ic_person_placeholder)
-//            }
-//
-//            itemView.setOnClickListener {
-//                onUserClick(user)
-//            }
-//        }
-//    }
-//
-//    class SearchResultDiffCallback : DiffUtil.ItemCallback<Map<String, Any>>() {
-//        override fun areItemsTheSame(oldItem: Map<String, Any>, newItem: Map<String, Any>): Boolean {
-//            return oldItem["uid"] == newItem["uid"]
-//        }
-//
-//        override fun areContentsTheSame(oldItem: Map<String, Any>, newItem: Map<String, Any>): Boolean {
-//            return oldItem == newItem
-//        }
-//    }
-//}

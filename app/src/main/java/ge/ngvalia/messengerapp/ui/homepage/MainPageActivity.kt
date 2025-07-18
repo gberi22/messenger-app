@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -18,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import ge.ngvalia.messengerapp.R
 import ge.ngvalia.messengerapp.ui.auth.LoginActivity
-import ge.ngvalia.messengerapp.ui.chat.ChatActivity
 import ge.ngvalia.messengerapp.ui.chat.ChatUtils
 import ge.ngvalia.messengerapp.userdiscovery.network.FirebaseMigrationHelper
 import ge.ngvalia.messengerapp.userdiscovery.ui.UserDiscoveryFragment
@@ -54,7 +52,7 @@ class MainPageActivity : AppCompatActivity() {
         setupObservers()
 
         val fab: FloatingActionButton = findViewById(R.id.fab_add)
-        runMigration() // delete this later
+        runMigration()
 
         fab.setOnClickListener {
             supportFragmentManager.beginTransaction()
@@ -76,20 +74,14 @@ class MainPageActivity : AppCompatActivity() {
 
     private fun runMigration() {
         lifecycleScope.launch {
-            try {
-                val migrationHelper = FirebaseMigrationHelper()
-                migrationHelper.addNicknameLowerField()
-            } catch (e: Exception) {
-                // Handle migration error silently
-            }
+            val migrationHelper = FirebaseMigrationHelper()
+            migrationHelper.addNicknameLowerField()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        // Reset to home when returning to MainActivity
         bottomNavigationView.selectedItemId = R.id.nav_home
-        // Refresh conversations
         viewModel.refresh()
     }
 
@@ -112,9 +104,7 @@ class MainPageActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         conversationsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Conversation adapter
         conversationAdapter = ConversationAdapter { conversation ->
-            // Navigate to chat
             ChatUtils.startChatActivity(
                 this,
                 conversation.otherUserId,
@@ -140,36 +130,28 @@ class MainPageActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        // Observe conversations
         viewModel.conversations.observe(this) { conversations ->
             if (viewModel.isSearchMode.value != true) {
                 conversationAdapter.submitList(conversations)
             }
         }
 
-        // Observe filtered conversations (during search)
         viewModel.filteredConversations.observe(this) { filteredConversations ->
             if (viewModel.isSearchMode.value == true) {
                 conversationAdapter.submitList(filteredConversations)
             }
         }
 
-        // Observe search mode
         viewModel.isSearchMode.observe(this) { isSearchMode ->
             if (isSearchMode) {
-                // Show search results
                 showSearchResults()
             } else {
-                // Show conversations
                 showConversations()
             }
         }
 
 
-        // Observe loading state
         viewModel.isLoading.observe(this) { isLoading ->
-            // You can show/hide loading indicator here
-            // For now, we'll just log it
             if (isLoading) {
                 // Show loading indicator
             } else {
@@ -177,7 +159,6 @@ class MainPageActivity : AppCompatActivity() {
             }
         }
 
-        // Observe errors
         viewModel.error.observe(this) { error ->
             error?.let {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
@@ -192,10 +173,8 @@ class MainPageActivity : AppCompatActivity() {
     }
 
     private fun showConversations() {
-        // Make sure we're showing the conversation adapter
         if (conversationsRecyclerView.adapter != conversationAdapter) {
             conversationsRecyclerView.adapter = conversationAdapter
-            // Resubmit the current list
             viewModel.conversations.value?.let { conversations ->
                 conversationAdapter.submitList(conversations)
             }
@@ -203,7 +182,6 @@ class MainPageActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        // Clear search if in search mode
         if (viewModel.isSearchMode.value == true) {
             searchEditText.text?.clear()
             viewModel.clearSearch()

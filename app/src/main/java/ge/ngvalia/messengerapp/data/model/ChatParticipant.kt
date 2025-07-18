@@ -4,4 +4,5 @@ data class ChatParticipant (
     var userId: String = "",
     val nickname: String = "",
     val profilePicUrl: String = "",
+    val profession: String = ""
 )

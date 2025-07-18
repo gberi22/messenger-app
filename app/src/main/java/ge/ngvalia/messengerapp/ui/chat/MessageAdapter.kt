@@ -20,7 +20,6 @@ class MessageAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiff
     private val VIEW_TYPE_SENT = 1
     private val VIEW_TYPE_RECEIVED = 2
 
-    // Use ListAdapter's built-in method instead of custom updateMessages
     fun updateMessages(newMessages: List<Message>) {
         submitList(newMessages)
     }
