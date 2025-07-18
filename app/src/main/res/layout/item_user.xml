@@ -37,7 +37,6 @@
                 android:textStyle="bold"
                 tools:text="Sayed Eftiaz" />
 
-
         </LinearLayout>
 
         <TextView

@@ -1,10 +1,8 @@
-package ge.ngvalia.messengerapp
+package ge.ngvalia.messengerapp.ui.homepage
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,15 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import ge.ngvalia.messengerapp.R
 import ge.ngvalia.messengerapp.ui.auth.LoginActivity
-import ge.ngvalia.messengerapp.ui.chat.Conversation
-import ge.ngvalia.messengerapp.ui.chat.ConversationAdapter
-import ge.ngvalia.messengerapp.userdiscovery.data.repository.UserRepository
 import ge.ngvalia.messengerapp.userdiscovery.network.FirebaseMigrationHelper
-import ge.ngvalia.messengerapp.userdiscovery.network.UserApi
 import ge.ngvalia.messengerapp.userdiscovery.ui.UserDiscoveryFragment
-import ge.ngvalia.messengerapp.userdiscovery.viewmodel.UserDiscoveryViewModel
-import ge.ngvalia.messengerapp.userdiscovery.viewmodel.UserDiscoveryViewModelFactory
 import kotlinx.coroutines.launch
 import ge.ngvalia.messengerapp.ui.profile.ProfileActivity
 
@@ -45,7 +38,6 @@ class MainPageActivity : AppCompatActivity() {
         runMigration() // delete
 
         fab.setOnClickListener {
-            // Replace R.id.fragment_container with your actual container ID
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, UserDiscoveryFragment())
                 .addToBackStack(null)

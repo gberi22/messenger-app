@@ -1,4 +1,4 @@
-package ge.ngvalia.messengerapp.ui.chat
+package ge.ngvalia.messengerapp.ui.homepage
 
 import android.view.LayoutInflater
 import android.view.View

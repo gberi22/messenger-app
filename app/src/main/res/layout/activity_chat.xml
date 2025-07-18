@@ -9,8 +9,9 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/chatToolbar"
         android:layout_width="0dp"
-        android:layout_height="@dimen/toolbar_height"
+        android:layout_height="56dp"
         android:background="@color/primary"
+        android:elevation="4dp"
         app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,21 +22,30 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="@dimen/message_input_margin"
+        android:padding="8dp"
+        android:background="#F5F5F5"
         app:layout_constraintTop_toBottomOf="@id/chatToolbar"
-        app:layout_constraintBottom_toTopOf="@id/messageContainer"
+        app:layout_constraintBottom_toTopOf="@id/messageInputContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        app:layout_constraintBottom_toTopOf="@id/messageInputContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
-        android:id="@+id/messageContainer"
+        android:id="@+id/messageInputContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/edit_text"
-        android:padding="@dimen/message_container_padding"
-        android:layout_margin="@dimen/message_input_margin"
-        android:elevation="4dp"
+        android:background="@color/white"
+        android:padding="12dp"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -44,22 +54,28 @@
             android:id="@+id/etMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/write_message"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:padding="@dimen/message_input_padding"
+            android:background="@drawable/message_input_background"
+            android:hint="@string/write_message"
+            android:padding="12dp"
             android:maxLines="4"
             android:textColor="@color/black"
-            android:textColorHint="#999999" />
+            android:textColorHint="@color/grey"
+            android:textSize="16sp"
+            android:imeOptions="actionSend"
+            android:inputType="textMultiLine|textCapSentences" />
 
         <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="@dimen/send_button_size"
-            android:layout_height="@dimen/send_button_size"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:src="@drawable/send_button_shape"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/send" />
+            android:layout_marginStart="8dp"
+            android:background="@drawable/send_button_shape"
+            android:contentDescription="@string/send"
+            android:enabled="false"
+            android:alpha="0.5" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

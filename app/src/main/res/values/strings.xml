@@ -20,4 +20,8 @@
     <string name="no_users_found">Could not find users with given name</string>
     <string name="something_went_wrong">Something went wrong.</string>
     <string name="retry">Retry</string>
+
+x    <string name="chat">Chat</string>
+    <string name="no_messages">No messages yet</string>
+    <string name="typing">Typing…</string>
 </resources>

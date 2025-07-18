@@ -1,9 +1,9 @@
-package ge.ngvalia.messengerapp.auth
+package ge.ngvalia.messengerapp.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import ge.ngvalia.messengerapp.data.model.AuthResult
 import ge.ngvalia.messengerapp.data.model.User
-import ge.ngvalia.messengerapp.data.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,15 +33,14 @@ class AuthRepository {
                                 return@addOnCompleteListener
                             }
 
-                            // Create user data with nicknameLower for search
                             val userMap = mapOf(
                                 "uid" to userId,
                                 "nickname" to nickname,
-                                "nicknameLower" to nickname.lowercase(), // Added for search
+                                "nicknameLower" to nickname.lowercase(),
                                 "profession" to profession,
-                                "photoUrl" to "" // Added for completeness
+                                "photoUrl" to ""
                             )
-                            // Create user profile
+
                             val user = User(
                                 uid = userId,
                                 nickname = nickname,
@@ -49,7 +48,7 @@ class AuthRepository {
                                 profilePicUrl = ""
                             )
 
-                            val updates = hashMapOf<String, Any>(
+                            val updates = hashMapOf(
                                 "users/$userId" to userMap,
                                 "nicknames/$nickname" to userId
                             )
@@ -60,7 +59,6 @@ class AuthRepository {
                                     callback(AuthResult.Success)
                                 }
                                 .addOnFailureListener { e ->
-                                    // Delete the auth user if DB update fails
                                     auth.currentUser?.delete()
                                     callback(AuthResult.Error(e.message ?: "Failed to create user profile"))
                                 }

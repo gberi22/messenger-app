@@ -11,8 +11,9 @@ import com.bumptech.glide.Glide
 import ge.ngvalia.messengerapp.R
 import ge.ngvalia.messengerapp.databinding.ActivityProfileBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import ge.ngvalia.messengerapp.MainPageActivity
+import ge.ngvalia.messengerapp.ui.homepage.MainPageActivity
 import ge.ngvalia.messengerapp.ui.auth.LoginActivity
+import ge.ngvalia.messengerapp.userdiscovery.ui.UserDiscoveryFragment
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -92,6 +93,13 @@ class ProfileActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
+        }
+
+        binding.fabAdd.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.profile_fragment_container, UserDiscoveryFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 

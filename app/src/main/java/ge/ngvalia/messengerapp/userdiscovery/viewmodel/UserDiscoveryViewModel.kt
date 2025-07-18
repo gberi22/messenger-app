@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ge.ngvalia.messengerapp.userdiscovery.data.model.User
-import ge.ngvalia.messengerapp.userdiscovery.data.repository.UserRepository
+import ge.ngvalia.messengerapp.data.model.User
+import ge.ngvalia.messengerapp.data.repository.SearchUserRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class UserDiscoveryViewModel(
-    private val repository: UserRepository
+    private val repository: SearchUserRepository
 ) : ViewModel() {
 
     private val _users = MutableLiveData<List<User>>()
@@ -50,12 +50,11 @@ class UserDiscoveryViewModel(
 
                 currentUsers.addAll(newUsers)
 
-                // Only update UI if not in search mode
                 if (!isSearchMode) {
                     _users.value = currentUsers.toList()
                 }
 
-                lastKey = newUsers.lastOrNull()?.id
+                lastKey = newUsers.lastOrNull()?.uid
 
             } catch (e: Exception) {
                 _error.value = "Failed to load users: ${e.message}"
@@ -68,7 +67,6 @@ class UserDiscoveryViewModel(
     fun searchUsers(query: String) {
         currentSearchQuery = query.trim()
 
-        // Cancel previous search
         searchJob?.cancel()
 
         if (currentSearchQuery.isEmpty()) {
@@ -78,7 +76,6 @@ class UserDiscoveryViewModel(
 
         searchJob = viewModelScope.launch {
             try {
-                // Debounce search requests
                 delay(300)
 
                 _isSearching.value = true
@@ -90,7 +87,6 @@ class UserDiscoveryViewModel(
 
             } catch (e: Exception) {
                 _error.value = "Search failed: ${e.message}"
-                // On search error, show current users
                 _users.value = currentUsers.toList()
             } finally {
                 _isSearching.value = false

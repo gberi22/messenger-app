@@ -7,9 +7,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import ge.ngvalia.messengerapp.databinding.ActivityRegisterBinding
 import androidx.activity.viewModels
-import ge.ngvalia.messengerapp.MainPageActivity
-import ge.ngvalia.messengerapp.auth.AuthResult
-import ge.ngvalia.messengerapp.auth.AuthViewModel
+import ge.ngvalia.messengerapp.ui.homepage.MainPageActivity
+import ge.ngvalia.messengerapp.data.model.AuthResult
 
 class RegisterActivity : AppCompatActivity() {
 
