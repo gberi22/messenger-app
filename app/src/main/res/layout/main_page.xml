@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
@@ -23,9 +22,9 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:background="@drawable/gradient_background"
                 android:fitsSystemWindows="true"
                 app:contentScrim="@drawable/blue_background"
-                android:background="@drawable/gradient_background"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@android:color/transparent">
 
@@ -71,8 +70,8 @@
                                 android:layout_weight="1"
                                 android:background="@android:color/transparent"
                                 android:hint="@string/search"
-                                android:textColorHint="@android:color/black"
                                 android:textColor="@color/black"
+                                android:textColorHint="@android:color/black"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -95,11 +94,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/conversations_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            app:layout_anchor="@id/bottom_app_bar"
+            android:layout_height="286dp"
             android:layout_marginTop="128dp"
-            app:layout_anchorGravity="top|fill_horizontal"
+            android:clipToPadding="false"
+            app:layout_anchor="@+id/conversations_recycler_view"
+            app:layout_anchorGravity="top|center"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/item_conversation" />
 

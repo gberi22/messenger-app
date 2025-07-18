@@ -21,7 +21,7 @@ import ge.ngvalia.messengerapp.userdiscovery.viewmodel.UserDiscoveryViewModelFac
 import ge.ngvalia.messengerapp.userdiscovery.network.UserApi
 import ge.ngvalia.messengerapp.ui.chat.ChatActivity
 import ge.ngvalia.messengerapp.data.model.User
-import ge.ngvalia.messengerapp.ui.auth.RegisterActivity
+import ge.ngvalia.messengerapp.ui.chat.ChatUtils
 
 class UserDiscoveryFragment : Fragment() {
 
@@ -51,11 +51,13 @@ class UserDiscoveryFragment : Fragment() {
         }
 
         adapter = UserListAdapter { user ->
-            val intent = Intent(requireContext(), ChatActivity::class.java).apply {
-                putExtra("OTHER_USER_ID", user.uid)
-                putExtra("OTHER_USER_NAME", user.nickname)
-            }
-            startActivity(intent)
+            // Use ChatUtils for consistency
+            ChatUtils.startChatActivity(
+                requireContext(),
+                user.uid,
+                user.nickname,
+                user.profilePicUrl
+            )
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

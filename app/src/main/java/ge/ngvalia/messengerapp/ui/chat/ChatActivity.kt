@@ -26,6 +26,10 @@ class ChatActivity : AppCompatActivity() {
         intent.getStringExtra("OTHER_USER_NAME") ?: "Chat"
     }
 
+    private val otherUserAvatar: String? by lazy {
+        intent.getStringExtra("OTHER_USER_AVATAR")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
@@ -64,9 +68,12 @@ class ChatActivity : AppCompatActivity() {
         binding.recyclerMessages.apply {
             this.layoutManager = layoutManager
             adapter = messageAdapter
+            // Improved scroll handling
             addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
-                if (bottom < oldBottom) {
-                    scrollToPosition(messageAdapter.itemCount - 1)
+                if (bottom < oldBottom && messageAdapter.itemCount > 0) {
+                    post {
+                        scrollToPosition(messageAdapter.itemCount - 1)
+                    }
                 }
             }
         }
@@ -81,7 +88,7 @@ class ChatActivity : AppCompatActivity() {
             messageAdapter.updateMessages(messages)
             if (messages.isNotEmpty()) {
                 binding.recyclerMessages.post {
-                    binding.recyclerMessages.scrollToPosition(messages.size - 1)
+                    binding.recyclerMessages.smoothScrollToPosition(messages.size - 1)
                 }
             }
         }
@@ -93,8 +100,9 @@ class ChatActivity : AppCompatActivity() {
         }
 
         viewModel.isLoading.observe(this) { isLoading ->
-            binding.btnSend.isEnabled = !isLoading &&
-                    binding.etMessage.text.toString().trim().isNotEmpty()
+            val hasText = binding.etMessage.text.toString().trim().isNotEmpty()
+            binding.btnSend.isEnabled = !isLoading && hasText
+            binding.btnSend.alpha = if (!isLoading && hasText) 1.0f else 0.5f
         }
 
         viewModel.error.observe(this) { error ->
@@ -108,6 +116,7 @@ class ChatActivity : AppCompatActivity() {
             if (messageSent) {
                 binding.etMessage.text?.clear()
                 viewModel.clearMessageSent()
+                // Hide keyboard after sending
                 hideKeyboard()
             }
         }
@@ -131,19 +140,25 @@ class ChatActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val hasText = s?.toString()?.trim()?.isNotEmpty() == true
-                val isNotLoading = viewModel.isLoading.value != true
-                binding.btnSend.isEnabled = hasText && isNotLoading
-                binding.btnSend.alpha = if (hasText) 1.0f else 0.5f
+                updateSendButtonState()
             }
 
             override fun afterTextChanged(s: android.text.Editable?) {}
         })
     }
 
+    private fun updateSendButtonState() {
+        val hasText = binding.etMessage.text.toString().trim().isNotEmpty()
+        val isNotLoading = viewModel.isLoading.value != true
+        val isEnabled = hasText && isNotLoading
+
+        binding.btnSend.isEnabled = isEnabled
+        binding.btnSend.alpha = if (isEnabled) 1.0f else 0.5f
+    }
+
     private fun sendMessage() {
         val messageText = binding.etMessage.text.toString().trim()
-        if (messageText.isNotEmpty()) {
+        if (messageText.isNotEmpty() && viewModel.isLoading.value != true) {
             viewModel.sendMessage(messageText)
         }
     }
@@ -151,5 +166,10 @@ class ChatActivity : AppCompatActivity() {
     private fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.etMessage.windowToken, 0)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Clean up resources if needed
     }
 }

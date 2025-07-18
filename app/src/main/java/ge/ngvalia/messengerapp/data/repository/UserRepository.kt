@@ -16,10 +16,6 @@ class UserRepository {
 
     suspend fun createUserProfile(user: User): Result<Unit> {
         return try {
-            if (!isNicknameUnique(user.nickname)) {
-                return Result.failure(Exception("Nickname already exists"))
-            }
-
             val userMap = mapOf(
                 "uid" to user.uid,
                 "nickname" to user.nickname,

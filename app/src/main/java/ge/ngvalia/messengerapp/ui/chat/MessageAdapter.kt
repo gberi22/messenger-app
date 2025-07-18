@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import ge.ngvalia.messengerapp.R
@@ -11,21 +13,20 @@ import ge.ngvalia.messengerapp.data.model.Message
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessageAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCallback()) {
 
-    private var messages = listOf<Message>()
     private val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
 
     private val VIEW_TYPE_SENT = 1
     private val VIEW_TYPE_RECEIVED = 2
 
+    // Use ListAdapter's built-in method instead of custom updateMessages
     fun updateMessages(newMessages: List<Message>) {
-        messages = newMessages
-        notifyDataSetChanged()
+        submitList(newMessages)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (messages[position].senderId == currentUserId) {
+        return if (getItem(position).senderId == currentUserId) {
             VIEW_TYPE_SENT
         } else {
             VIEW_TYPE_RECEIVED
@@ -45,15 +46,13 @@ class MessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val message = messages[position]
+        val message = getItem(position)
 
         when (holder) {
             is SentMessageViewHolder -> holder.bind(message)
             is ReceivedMessageViewHolder -> holder.bind(message)
         }
     }
-
-    override fun getItemCount() = messages.size
 
     class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageText: TextView = itemView.findViewById(R.id.messageText)
@@ -72,6 +71,16 @@ class MessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(message: Message) {
             messageText.text = message.text
             messageTime.text = formatTime(message.timestamp)
+        }
+    }
+
+    class MessageDiffCallback : DiffUtil.ItemCallback<Message>() {
+        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
+            return oldItem == newItem
         }
     }
 

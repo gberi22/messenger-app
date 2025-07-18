@@ -20,14 +20,12 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // TODO Back logic later
         val passwordEdit = binding.etPassword
         val nicknameEdit = binding.etNickname
         val professionEdit = binding.etProfession
         val registerBtn = binding.btnSignUp
 
         registerBtn.setOnClickListener {
-            Log.d("RegisterActivity", "Register button clicked")
             if (nicknameEdit.text.isEmpty() || passwordEdit.text.isEmpty() || professionEdit.text.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

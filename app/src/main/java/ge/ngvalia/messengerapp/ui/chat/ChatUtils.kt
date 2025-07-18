@@ -1,9 +1,8 @@
-package ge.ngvalia.messengerapp.util
+package ge.ngvalia.messengerapp.ui.chat
 
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import ge.ngvalia.messengerapp.ui.chat.ChatActivity
 
 object ChatUtils {
 
@@ -14,12 +13,14 @@ object ChatUtils {
         otherUserAvatar: String? = null
     ) {
         try {
-
             val intent = Intent(context, ChatActivity::class.java).apply {
-
+                putExtra("OTHER_USER_ID", otherUserId)
+                putExtra("OTHER_USER_NAME", otherUserName)
+                putExtra("OTHER_USER_AVATAR", otherUserAvatar)
             }
             context.startActivity(intent)
         } catch (e: Exception) {
+            Log.e("ChatUtils", "Error starting chat activity", e)
             throw e
         }
     }

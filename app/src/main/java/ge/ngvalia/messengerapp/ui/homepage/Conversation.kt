@@ -1,9 +1,19 @@
 package ge.ngvalia.messengerapp.ui.homepage
 
 data class Conversation(
-    val userName: String,
-    val lastMessage: String,
-    val timestamp: String,
-    val avatarUrl: String? = null
-)
-
+    val chatRoomId: String = "",
+    val otherUserId: String = "",
+    val otherUserName: String = "",
+    val otherUserAvatar: String = "",
+    val lastMessage: String = "",
+    val lastMessageTime: String = "",
+    val lastMessageTimestamp: Long = 0L,
+    val lastMessageSenderId: String = "",
+    val isUnread: Boolean = false
+) {
+    fun matchesQuery(query: String): Boolean {
+        val lowerQuery = query.lowercase()
+        return otherUserName.lowercase().contains(lowerQuery) ||
+                lastMessage.lowercase().contains(lowerQuery)
+    }
+}
