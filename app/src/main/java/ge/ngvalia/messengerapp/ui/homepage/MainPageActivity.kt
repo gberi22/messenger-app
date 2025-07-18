@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +34,8 @@ class MainPageActivity : AppCompatActivity() {
     private lateinit var conversationAdapter: ConversationAdapter
     private lateinit var searchEditText: EditText
     private lateinit var conversationsRecyclerView: RecyclerView
+    private lateinit var loadingContainer: FrameLayout
+    private lateinit var emptyStateContainer: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +71,8 @@ class MainPageActivity : AppCompatActivity() {
         conversationsRecyclerView = findViewById(R.id.conversations_recycler_view)
         searchEditText = findViewById(R.id.search_edit_text)
         bottomNavigationView = findViewById(R.id.bottom_navigation)
+        loadingContainer = findViewById(R.id.loading_container)
+        emptyStateContainer = findViewById(R.id.empty_state_container)
     }
 
     private fun setupViewModel() {
@@ -121,11 +128,12 @@ class MainPageActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
                 val query = s?.toString()?.trim() ?: ""
                 viewModel.search(query)
             }
-
-            override fun afterTextChanged(s: Editable?) {}
         })
     }
 
@@ -133,12 +141,14 @@ class MainPageActivity : AppCompatActivity() {
         viewModel.conversations.observe(this) { conversations ->
             if (viewModel.isSearchMode.value != true) {
                 conversationAdapter.submitList(conversations)
+                updateUI(conversations)
             }
         }
 
         viewModel.filteredConversations.observe(this) { filteredConversations ->
             if (viewModel.isSearchMode.value == true) {
                 conversationAdapter.submitList(filteredConversations)
+                updateUI(filteredConversations)
             }
         }
 
@@ -150,26 +160,44 @@ class MainPageActivity : AppCompatActivity() {
             }
         }
 
-
         viewModel.isLoading.observe(this) { isLoading ->
-            if (isLoading) {
-                // Show loading indicator
-            } else {
-                // Hide loading indicator
-            }
+            updateLoadingState(isLoading)
         }
 
         viewModel.error.observe(this) { error ->
             error?.let {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).show()
                 viewModel.clearError()
+                updateLoadingState(false)
             }
         }
     }
 
+    private fun updateLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            loadingContainer.visibility = View.VISIBLE
+            conversationsRecyclerView.visibility = View.GONE
+            emptyStateContainer.visibility = View.GONE
+        } else {
+            loadingContainer.visibility = View.GONE
+        }
+    }
+
+    private fun updateUI(conversations: List<Conversation>) {
+        if (viewModel.isLoading.value == true) {
+            return
+        }
+
+        if (conversations.isEmpty()) {
+            conversationsRecyclerView.visibility = View.GONE
+            emptyStateContainer.visibility = View.VISIBLE
+        } else {
+            conversationsRecyclerView.visibility = View.VISIBLE
+            emptyStateContainer.visibility = View.GONE
+        }
+    }
+
     private fun showSearchResults() {
-        // The adapter switching is handled in the search results observer
-        // This method can be used for additional UI changes during search
     }
 
     private fun showConversations() {
@@ -177,6 +205,7 @@ class MainPageActivity : AppCompatActivity() {
             conversationsRecyclerView.adapter = conversationAdapter
             viewModel.conversations.value?.let { conversations ->
                 conversationAdapter.submitList(conversations)
+                updateUI(conversations)
             }
         }
     }

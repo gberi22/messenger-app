@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:padding="@dimen/message_padding"
     android:gravity="start">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="@dimen/message_margin_end"
         android:orientation="vertical">
 
         <TextView
@@ -17,20 +17,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/message_bubble_received"
-            android:padding="12dp"
-            android:text="I'm doing great, thanks!"
+            android:padding="@dimen/message_text_padding"
+            android:text="@string/message_received_default"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/message_text_size" />
 
         <TextView
             android:id="@+id/messageTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="4dp"
-            android:text="10:32"
+            android:layout_marginTop="@dimen/message_time_margin"
+            android:text="@string/message_time_default_1"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            android:textSize="@dimen/message_time_text_size" />
 
     </LinearLayout>
 

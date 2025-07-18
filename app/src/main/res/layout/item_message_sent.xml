@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:padding="@dimen/message_padding"
     android:gravity="end">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="@dimen/message_margin_start"
         android:orientation="vertical">
 
         <TextView
@@ -17,20 +17,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/message_bubble_sent"
-            android:padding="12dp"
-            android:text="Hello, how are you?"
+            android:padding="@dimen/message_text_padding"
+            android:text="@string/message_sent_default"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/message_text_size" />
 
         <TextView
             android:id="@+id/messageTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="4dp"
-            android:text="10:30"
+            android:layout_marginTop="@dimen/message_time_margin"
+            android:text="@string/message_time_default_2"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
+            android:textSize="@dimen/message_time_text_size" />
 
     </LinearLayout>
 

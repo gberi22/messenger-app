@@ -38,33 +38,6 @@ class UserApi(
         return processUsersFromSnapshot(snapshot)
     }
 
-    private suspend fun searchByNicknameFieldWithClientFilter(searchQuery: String, limit: Int): List<User> {
-        val searchQueryLower = searchQuery.lowercase()
-
-        val query = db.orderByChild("nickname")
-            .startAt(searchQuery)
-            .endAt(searchQuery + "\uf8ff")
-            .limitToFirst(limit * 2)
-
-        val snapshot = query.get().await()
-        val users = processUsersFromSnapshot(snapshot)
-
-        return users.filter { user ->
-            user.nickname.lowercase().contains(searchQueryLower)
-        }.take(limit)
-    }
-
-    suspend fun searchUsersClientSide(searchQuery: String): List<User> {
-        val searchQueryLower = searchQuery.lowercase()
-
-        val snapshot = db.get().await()
-        val users = processUsersFromSnapshot(snapshot)
-
-        return users.filter { user ->
-            user.nickname.lowercase().contains(searchQueryLower)
-        }
-    }
-
     private fun processUsersFromSnapshot(snapshot: DataSnapshot): List<User> {
         val users = mutableListOf<User>()
 

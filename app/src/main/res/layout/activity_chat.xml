@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -9,21 +10,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/customToolbar"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="@dimen/toolbar_height_chat"
         android:background="@color/primary"
-        android:elevation="4dp"
-        android:padding="8dp"
+        android:elevation="@dimen/toolbar_elevation"
+        android:padding="@dimen/toolbar_padding"
+        android:layout_marginTop="@dimen/toolbar_margin_top"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/back_button_size"
+            android:layout_height="@dimen/back_button_size"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back_content_description"
             app:tint="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,22 +33,23 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivProfilePicture"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="@dimen/profile_picture_size"
+            android:layout_height="@dimen/profile_picture_size"
+            android:layout_marginStart="@dimen/profile_picture_margin"
             android:src="@drawable/ic_person"
             app:civ_border_width="1dp"
             app:civ_border_color="@android:color/white"
             app:layout_constraintStart_toEndOf="@id/btnBack"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingClass" />
 
         <LinearLayout
             android:id="@+id/userInfoContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/user_info_margin_start"
+            android:layout_marginEnd="@dimen/user_info_margin_end"
             android:orientation="vertical"
             app:layout_constraintStart_toEndOf="@id/ivProfilePicture"
             app:layout_constraintEnd_toStartOf="@id/btnMore"
@@ -57,9 +60,9 @@
                 android:id="@+id/tvUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User Name"
+                android:text="@string/user_name_default"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
+                android:textSize="@dimen/user_name_text_size"
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:ellipsize="end" />
@@ -68,10 +71,10 @@
                 android:id="@+id/tvUserStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tap to view info"
+                android:text="@string/tap_to_view_info"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:alpha="0.8"
+                android:textSize="@dimen/user_status_text_size"
+                android:alpha="@dimen/user_status_alpha"
                 android:maxLines="1"
                 android:ellipsize="end" />
 
@@ -79,11 +82,11 @@
 
         <ImageButton
             android:id="@+id/btnMore"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/back_button_size"
+            android:layout_height="@dimen/back_button_size"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_more"
-            android:contentDescription="More options"
+            android:contentDescription="@string/more_options"
             app:tint="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -95,9 +98,10 @@
         android:id="@+id/recyclerMessages"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/recycler_margin_top"
         android:clipToPadding="false"
-        android:padding="8dp"
-        android:background="#F5F5F5"
+        android:padding="@dimen/recycler_padding"
+        android:background="@color/background_gray"
         app:layout_constraintTop_toBottomOf="@id/customToolbar"
         app:layout_constraintBottom_toTopOf="@id/messageInputContainer"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,8 +110,8 @@
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#E0E0E0"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_gray"
         app:layout_constraintBottom_toTopOf="@id/messageInputContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -118,8 +122,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white"
-        android:padding="12dp"
-        android:elevation="8dp"
+        android:padding="@dimen/message_input_container_padding"
+        android:elevation="@dimen/message_input_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -131,24 +135,24 @@
             android:layout_weight="1"
             android:background="@drawable/message_input_background"
             android:hint="@string/write_message"
-            android:padding="12dp"
+            android:padding="@dimen/message_input_padding_inner"
             android:maxLines="4"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
-            android:textSize="16sp"
+            android:textSize="@dimen/user_name_text_size"
             android:imeOptions="actionSend"
             android:inputType="textMultiLine|textCapSentences" />
 
         <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/send_button_size_large"
+            android:layout_height="@dimen/send_button_size_large"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/send_button_margin"
             android:background="@drawable/send_button_shape"
             android:contentDescription="@string/send"
             android:enabled="false"
-            android:alpha="0.5" />
+            android:alpha="@dimen/send_button_alpha" />
 
     </LinearLayout>
 

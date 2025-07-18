@@ -32,7 +32,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private val otherUserDescription: String? by lazy {
-        intent.getStringExtra("OTHER_USER_DESCRIPTION")  // Changed from "OTHER_USER_PROFESSION"
+        intent.getStringExtra("OTHER_USER_PROFESSION")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,7 +111,7 @@ class ChatActivity : AppCompatActivity() {
         viewModel.chatParticipant.observe(this) { participant ->
             participant?.let {
                 binding.tvUserName.text = it.nickname
-                binding.tvUserStatus.text = it.profession.ifEmpty { "No description" }
+                binding.tvUserStatus.text = it.profession.ifEmpty { "None" }
 
                 if (it.profilePicUrl.isNotEmpty()) {
                     Glide.with(this)

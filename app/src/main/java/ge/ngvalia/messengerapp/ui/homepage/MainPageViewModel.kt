@@ -69,9 +69,7 @@ class MainPageViewModel : ViewModel() {
             return
         }
 
-        if (currentQuery.length < 2) {
-            return
-        }
+
 
         _isSearchMode.value = true
 

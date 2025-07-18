@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ge.ngvalia.messengerapp.databinding.ItemUserBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import ge.ngvalia.messengerapp.R
 import ge.ngvalia.messengerapp.data.model.User
 
 class UserListAdapter(
@@ -34,7 +36,12 @@ class UserListAdapter(
         fun bind(user: User) {
             binding.userName.text = user.nickname
             binding.profession.text = user.profession
-            Glide.with(binding.userAvatar).load(user.profilePicUrl).into(binding.userAvatar)
+
+            if (user.profilePicUrl.isNotEmpty()) {
+                Glide.with(binding.userAvatar).load(user.profilePicUrl).into(binding.userAvatar)
+            } else {
+                binding.userAvatar.setImageResource(R.drawable.person)
+            }
 
             binding.root.setOnClickListener {
                 onUserClick(user)
